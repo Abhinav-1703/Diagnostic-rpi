@@ -2,6 +2,7 @@ import os
 import psutil
 import subprocess
 import time
+import platform
 
 def get_temperature():
     try:
@@ -73,6 +74,17 @@ def get_swap_usage():
     swap = psutil.swap_memory()
     return swap.percent
 
+def check_internet_connection():
+    try:
+        # Different OS uses different commands to ping
+        if platform.system().lower() == "windows":
+            output = subprocess.check_output(['ping', '-n', '1', 'google.com'], stderr=subprocess.STDOUT, universal_newlines=True)
+        else:
+            output = subprocess.check_output(['ping', '-c', '1', 'google.com'], stderr=subprocess.STDOUT, universal_newlines=True)
+        return "Internet is connected"
+    except subprocess.CalledProcessError:
+        return "Internet is not connected"
+
 def main():
     diagnostics = {
         'temperature': get_temperature(),
@@ -84,10 +96,10 @@ def main():
         'cpu_frequency': get_cpu_frequency(),
         'gpu_temperature': get_gpu_temperature(),
         'system_load': get_system_load(),
-        'process_info': get_process_info(),
         'network_interfaces': get_network_interfaces(),
         'filesystem_usage': get_filesystem_usage(),
         'swap_usage': get_swap_usage(),
+        'internet_connection': check_internet_connection(),
     }
 
     for key, value in diagnostics.items():
