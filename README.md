@@ -1,6 +1,6 @@
 # Raspberry Pi Diagnostic Script
 
-This repository contains a Python script for collecting diagnostic data from a Raspberry Pi. The script gathers information such as temperature, CPU usage, memory usage, disk usage, network statistics, uptime, CPU frequency, GPU temperature, system load, process information, network interface details, filesystem usage, swap usage, and internet connectivity status.
+This repository contains a Python script for collecting diagnostic data from a Raspberry Pi. The script gathers information such as temperature, CPU usage, memory usage, disk usage, network statistics, uptime, CPU frequency, GPU temperature, system load, process information, network interface details, and internet connectivity status.
 
 ## Features
 
@@ -8,14 +8,12 @@ This repository contains a Python script for collecting diagnostic data from a R
 - **CPU Usage**: Monitor the CPU usage percentage.
 - **Memory Usage**: Check the percentage of memory used.
 - **Disk Usage**: Check the percentage of disk space used.
-- **Network Statistics**: Gather data on bytes and packets sent and received.
+- **Network Statistics**: Gather data on packet loss percentage.
 - **Uptime**: Check how long the system has been running.
 - **CPU Frequency**: Get the current CPU frequency.
 - **System Load**: Load averages over the last 1, 5, and 15 minutes.
 - **Process Information**: List of running processes with their CPU and memory usage.
 - **Network Interfaces**: Information about all network interfaces.
-- **Filesystem Usage**: Detailed usage of different filesystems.
-- **Swap Usage**: Information on swap memory usage.
 - **Internet Connectivity**: Ping a website (Google) to check if the internet connection is active.
 
 ## Requirements
@@ -58,20 +56,18 @@ This repository contains a Python script for collecting diagnostic data from a R
 2. **Sample Output:**
 
     ```sh
-    temperature: 45.0
-    cpu_usage: 15.3
-    memory_usage: 60.1
-    disk_usage: 45.2
-    network_stats: {'bytes_sent': 123456, 'bytes_recv': 654321, 'packets_sent': 100, 'packets_recv': 200}
-    uptime: up 1 hour, 23 minutes
-    cpu_frequency: 1400.0
-    gpu_temperature: 44.0
-    system_load: (0.15, 0.25, 0.35)
-    process_info: [{'pid': 1, 'name': 'init', 'cpu_percent': 0.0, 'memory_percent': 0.1}, ...]
-    network_interfaces: {'eth0': ['192.168.1.2'], 'lo': ['127.0.0.1']}
-    filesystem_usage: {'/': {'total': 30513930240, 'used': 12456755200, 'free': 18057113600, 'percent': 40.8}}
-    swap_usage: 20.5
-    internet_connection: Internet is connected
+    temperature: (45.0, 'OK')
+    cpu_usage: (15.3, 'OK')
+    memory_usage: (60.1, 'OK')
+    disk_usage: (45.2, 'OK')
+    network_stats: {'packet_loss_percent': 0}, Status: OK
+    uptime: ('up 1 hour, 23 minutes', 'OK')
+    cpu_frequency: (1400.0, 'OK')
+    gpu_temperature: (44.0, 'OK')
+    system_load: ((0.15, 0.25, 0.35), 'OK')
+    process_info: ([{'pid': 1, 'name': 'init', 'cpu_percent': 0.0, 'memory_percent': 0.1}, ...], 'OK')
+    network_interfaces: ({'eth0': ['192.168.1.2'], 'lo': ['127.0.0.1']}, 'OK')
+    google_ping_status: ('Internet is connected', 'OK')
     ```
 
 ## Customization
@@ -81,6 +77,3 @@ You can customize the script by adding or modifying the diagnostic functions. Th
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-
-
