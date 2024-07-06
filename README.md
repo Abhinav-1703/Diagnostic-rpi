@@ -39,7 +39,7 @@ This repository contains a Python script for collecting diagnostic data from a R
     python3 -m venv myenv
     source myenv/bin/activate
     ```
-
+   For Firebase Setup up RTDB and generate a private key and store add the database url and private key location to the code
 3. **Install the required packages:**
 
     ```sh
