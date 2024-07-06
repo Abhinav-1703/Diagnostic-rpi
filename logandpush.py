@@ -5,7 +5,6 @@ import platform
 import logging
 import re
 import time
-import json
 import firebase_admin
 from firebase_admin import credentials, db
 
@@ -22,12 +21,15 @@ logger = logging.getLogger()
 # Initialize Firebase Admin SDK
 cred = credentials.Certificate("path/to/your/serviceAccountKey.json")
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://your-database-name.firebaseio.com/'
+    'databaseURL': 'https://<your-database-name>.firebaseio.com/'
 })
 
 def push_to_firebase(data):
-    ref = db.reference('system_diagnostics')
-    ref.push(data)
+    try:
+        ref = db.reference('system_diagnostics')
+        ref.push(data)
+    except Exception as e:
+        logger.error(f"Failed to push to Firebase: {e}")
 
 def get_temperature():
     try:
@@ -136,7 +138,6 @@ def run_diagnostics():
     for key, (value, status) in diagnostics.items():
         logger.info(f"{key}: {value}, Status: {status}")
 
-    # Push diagnostics to Firebase
     push_to_firebase(diagnostics)
 
 def main():
