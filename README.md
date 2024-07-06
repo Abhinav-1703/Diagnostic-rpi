@@ -15,6 +15,7 @@ This repository contains a Python script for collecting diagnostic data from a R
 - **Process Information**: List of running processes with their CPU and memory usage.
 - **Network Interfaces**: Information about all network interfaces.
 - **Internet Connectivity**: Ping a website (Google) to check if the internet connection is active.
+- **Routine**:logandcheck code logs data every 5 minutes and checks for internet connection for minute if lost and reboots accordingly.
 
 ## Requirements
 
